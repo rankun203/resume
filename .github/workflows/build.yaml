@@ -4,6 +4,9 @@ on:
   push:
     branches: [master]
 
+permissions:
+  contents: write
+
 jobs:
   compile:
     name: Compile and release resume pdf
@@ -27,6 +30,5 @@ jobs:
           tag_name: latest
           name: Latest Resume
           files: resume.pdf
-          overwrite: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
