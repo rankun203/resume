@@ -41,8 +41,8 @@
       "tools": [
         "clean", // Clean all build files first
         "pdflatex-shell-escape", // First pass: generate .aux files
-        "bibtex", // Process bibliography
-        "pdflatex-shell-escape", // Second pass: resolve citations
+        // "bibtex", // Process bibliography
+        // "pdflatex-shell-escape", // Second pass: resolve citations
         "pdflatex-shell-escape" // Third pass: finalize cross-references
       ]
     },
