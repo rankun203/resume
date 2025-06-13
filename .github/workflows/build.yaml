@@ -1,0 +1,32 @@
+name: Build and Release Resume
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  compile:
+    name: Compile and release resume pdf
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      
+      - name: Run the build process with Docker
+        uses: addnab/docker-run-action@v3
+        with:
+          image: thomasweise/docker-texlive-full:latest
+          options: -v ${{ github.workspace }}:/data
+          run: |
+            cd data
+            pdflatex resume.tex
+      
+      - name: Create/Update Latest Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Latest Resume
+          files: resume.pdf
+          overwrite: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
