@@ -1,0 +1,42 @@
+\documentclass{seminar}
+% \newif\ifpdf\ifx\pdfoutput\undefined\pdffalse\else\pdfoutput=1\pdftrue\fi
+\usepackage{slidesec,fancybox}
+% \usepackage{RuG2e}
+\usepackage[pdftex,colorlinks]{hyperref}%pdftex driver for hyperref
+                                        %colorlinks enables colored links
+\usepackage{acronym}
+\slideframe{Oval}
+
+\begin{document}
+
+% Define acronyms
+\acrodef{LLM}{Large Language Model}
+
+\begin{slide}
+% \textcolor{blue}{\wapen}
+\textcolor{red}{hi, colors are also available. This only works if the
+optional argument colorlinks of hyperref is invoked}
+% \textcolor{blue}{\balk}
+\end{slide}
+
+\begin{slide}
+\textbf{Information Retrieval}
+
+User query quality impacts retrieval effectiveness. This study categorizes
+thousands of user queries spanning one hundred topics into three groups -- low,
+medium, and high quality -- based on NDCG@10 scores.
+% \ma{question/problem}
+The study investigates the impact of fusing search results of
+\ac{LLM}-generated query variants with results retrieved from user queries
+drawn from the three groups, similar to a collaborative search approach where
+users with diverse queries collaborate in locating relevant information. 
+% \ma{results}
+The findings indicate that a traditional search system can be significantly
+improved by fusing results for low-quality queries, 
+% \ma{the impact of results}
+offering a promising solution for users who struggle to find relevant
+information, particularly in contexts where advanced search systems are
+impractical due to technical or resource constraints, or where access to query
+logs are unavailable.
+\end{slide}
+\end{document}

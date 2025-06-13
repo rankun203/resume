@@ -1,0 +1,16 @@
+.DS_Store
+related_works
+*.aux
+*.bbl
+*.blg
+*.brf
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*(busy)
+*.gz
+/*.pdf

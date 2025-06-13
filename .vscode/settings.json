@@ -1,0 +1,122 @@
+{
+  // Define custom LaTeX compilation tools
+  "latex-workshop.latex.tools": [
+    {
+      "name": "clean",
+      "command": "/bin/sh",
+      "args": [
+        "-c",
+        "rm -f *.aux *.bbl *.blg *.log *.out *.toc *.lot *.lof *.synctex.gz *.fdb_latexmk *.fls *.brf"
+      ],
+      "env": {}
+    },
+    {
+      "name": "pdflatex-shell-escape",
+      "command": "pdflatex",
+      "args": [
+        "-shell-escape", // CRITICAL: Enables minted to call Pygments
+        "-synctex=1", // Enables forward/backward search between PDF and source
+        "-interaction=nonstopmode", // Don't stop compilation on errors
+        "-file-line-error", // Better error reporting format
+        "%DOCFILE%" // Placeholder for the .tex file being compiled
+      ],
+      "env": {}
+    },
+    {
+      "name": "bibtex",
+      "command": "bibtex",
+      "args": ["%DOCFILE%"], // Process bibliography references
+      "env": {}
+    }
+  ],
+
+  // Define build sequences (recipes)
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "preview",
+      "tools": ["pdflatex-shell-escape"] // Simple single-pass compilation for quick previews
+    },
+    {
+      "name": "full",
+      "tools": [
+        "clean", // Clean all build files first
+        "pdflatex-shell-escape", // First pass: generate .aux files
+        "bibtex", // Process bibliography
+        "pdflatex-shell-escape", // Second pass: resolve citations
+        "pdflatex-shell-escape" // Third pass: finalize cross-references
+      ]
+    },
+    {
+      "name": "clean",
+      "tools": ["clean"]
+    }
+  ],
+
+  // Set default build recipe (fast single-pass for quick edits)
+  "latex-workshop.latex.recipe.default": "preview",
+  "latex-workshop.latex.build.forceRecipeUsage": false, // Allow smart recipe selection
+  "latex-workshop.latex.watch.delay": 250, // Reduce build delay (ms)
+
+  // ========================================
+  // File Management & Cleanup
+  // ========================================
+
+  "latex-workshop.latex.clean.subfolder.enabled": true, // Clean subfolders too
+  "latex-workshop.latex.autoClean.run": "onFailed", // Clean on failed builds
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux", // Auxiliary files
+    "*.bbl", // Bibliography files
+    "*.blg", // Bibliography log
+    "*.idx", // Index files
+    "*.ind", // Processed index
+    "*.lof", // List of figures
+    "*.lot", // List of tables
+    "*.out", // Hyperref outline
+    "*.toc", // Table of contents
+    "*.acn", // Acronym files
+    "*.acr", // Acronym references
+    "*.alg", // Algorithm files
+    "*.glg", // Glossary log
+    "*.glo", // Glossary
+    "*.gls", // Glossary sorted
+    "*.ist", // Index style
+    "*.fls", // File list
+    "*.log", // Compilation log
+    "*.fdb_latexmk", // Latexmk database
+    "*.figlist", // Figure list
+    "*.makefile", // Make files
+    "*.fignums", // Figure numbers
+    "*.auxlock" // Auxiliary lock files
+  ],
+
+  // ========================================
+  // PDF Viewer & Navigation
+  // ========================================
+
+  "latex-workshop.view.pdf.viewer": "tab", // Open PDF in VSCode tab
+  "latex-workshop.synctex.afterBuild.enabled": true, // Enable click-to-jump navigation
+
+  // ========================================
+  // Error Handling & Messages
+  // ========================================
+
+  "latex-workshop.message.error.show": true, // Show compilation errors
+  "latex-workshop.message.warning.show": true, // Show compilation warnings
+
+  // ========================================
+  // IntelliSense & Smart Features
+  // ========================================
+
+  "latex-workshop.intellisense.package.enabled": true, // Package command completion
+  "latex-workshop.intellisense.unimathsymbols.enabled": true, // Math symbol completion
+  "latex-workshop.hover.preview.enabled": true, // Math preview on hover
+  "latex-workshop.hover.preview.scale": 1.0, // Preview scale factor
+
+  // ========================================
+  // Project Structure Settings
+  // ========================================
+
+  "latex-workshop.latex.outDir": "%DIR%", // Output files in same directory
+  "latex-workshop.latex.rootFile.doNotPrompt": true, // Don't ask for root file
+  "latex-workshop.latex.rootFile.useSubFile": true // Support subfile package
+}
